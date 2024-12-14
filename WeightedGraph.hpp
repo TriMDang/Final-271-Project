@@ -22,6 +22,8 @@ using namespace std;
 class Graph {
 private:
     unordered_map<int, vector<int> > adjacencyList; // stores edges
+    //unordered_map<int, tuple<double, double>> vertices; // store vertices, <key, <x, y>>
+    //unordered_map<int, vector<tuple<int, int, string>>> adjacencyList // store edges; <u, <v, weight, name>>
     vector<int> sorted; // for topological order
     vector<int> ordered; // final topological order
     unordered_map<int, tuple<int, int, int>> DFSresults; // for DFS, format: unordered_map< vertex u , tuple< discovery, finish, parent >>
