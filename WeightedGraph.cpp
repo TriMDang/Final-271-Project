@@ -67,6 +67,7 @@ Graph Graph::readFromSTDIN() {
         cin >> ID >> x >> y;
         g.addVertex(ID, x, y);
         verticesProcessed = i;
+        //cout << ID << " " << x << " " << y << " " << endl; // for data verifications
     }
 
     // adding all the edges
@@ -76,12 +77,14 @@ Graph Graph::readFromSTDIN() {
         string buildingName = "";
         
         cin >> u >> v >> w;
-        if (cin.peek() != '\n'){ // should check if line m contains a name.
-            cin >> buildingName;
+
+        if (cin.peek() == ' '){ // should check if line m contains a name.
+            getline(cin, buildingName); // getline over cin, idk why it works tho
         }
 
         g.addEdge(u, v, w, buildingName);
         edgesProcessed = i;
+        cout << u << " " << v << " " << w << " " << buildingName << " " << endl; // for data verifications
     }
     
     cout << "Successful!" << endl << "Vertices Processed: " << verticesProcessed << endl << "Edges Processed: " << edgesProcessed << endl;
