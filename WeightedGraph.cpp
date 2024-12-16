@@ -5,7 +5,6 @@
 //=========================================
 #include <tuple>
 #include "WeightedGraph.hpp"
-#include "customexceptions.hpp" 
 #include <unordered_map>
 #include <vector>
 #include <queue>
@@ -38,13 +37,14 @@ Graph& Graph::operator=(const Graph& other) {
     return *this; 
 }
 
-void Graph::addEdge(int u, int v, double weight, string name){
-    
-}
-
 void Graph::addVertex(int u, double x, double y){
-
+    vertices[u] = make_tuple(x, y);
 }
+
+void Graph::addEdge(int u, int v, double weight, string name){
+    adjacencyList[u].push_back(make_tuple(v, weight, name));
+}
+
 
 //=========================================
 // read from STDIN

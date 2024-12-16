@@ -4,25 +4,21 @@
 // Author: Tri Dang, Omar Perez, Esther Zhang
 // Description: Declaration of all functions and variables for Weighted graph
 //=========================================
-#ifndef GRAPH_HPP
-#define GRAPH_HPP
+#ifndef WEIGHTEDGRAPH_HPP
+#define WEIGHTEDGRAPH_HPP
 
 #include <tuple>
 #include <iostream>
 #include <unordered_map>
 #include <vector>
 #include <set>
-/*
-find (begin, end, value)
-
-*/
 
 using namespace std;
 
 class Graph {
 private:
     unordered_map<int, tuple<double, double>> vertices; // store vertices, <vertex key, <x, y>>
-    unordered_map<int, vector<tuple<int, double, string>>> adjacencyList // store edges; <u, <v, weight, name>>
+    unordered_map<int, vector<tuple<int, double, string>>> adjacencyList; // store edges; <u, <v, weight, name>>
     
     //unordered_map<int, vector<int> > adjacencyList; // stores edges
     //vector<int> sorted; // for topological order
