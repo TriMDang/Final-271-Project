@@ -21,20 +21,37 @@ Graph::Graph(){
 }
 
 Graph::~Graph(){
-
+    adjacencyList.clear();
+    vertices.clear();
 }
 
-Graph::Graph(const Graph& other){
-
+Graph::Graph(const Graph& other) {
+    adjacencyList = other.adjacencyList; 
+    vertices = other.vertices;              
 }
 
+Graph& Graph::operator=(const Graph& other) {
+    if (this != &other) { 
+        adjacencyList = other.adjacencyList; 
+        vertices = other.vertices;              
+    }
+    return *this; 
+}
+
+void Graph::addEdge(int u, int v, double weight, string name){
+    
+}
+
+void Graph::addVertex(int u, double x, double y){
+
+}
 
 //=========================================
 // read from STDIN
 // Author: Tri Dang
 // Parameter: None. Is an assignment for any graph
 // Return: None. Reassign the graph into an STDIN with n nodes, m edges, and all node-to-node edges
-// Description: Prompts user to fill out a map in the terminal.
+// Description: This should take in denison.out inputs and store the data.
 //=========================================
 Graph Graph::readFromSTDIN() {
     int n, m;
@@ -43,15 +60,25 @@ Graph Graph::readFromSTDIN() {
     Graph g;
 
     // adding all the vertices
-    for (int i = i; i <= n; ++i) {
-        g.addVertex(i);
+    for (int i = 0; i < n; ++i) { // check the <= n or < n; check index if correct
+        int ID;
+        double x, y; // for readability, not necessary I don't think...
+        cin >> ID >> x >> y;
+        g.addVertex(ID, x, y);
     }
 
     // adding all the edges
     for (int i = 0; i < m; ++i){
         int u, v;
-        cin >> u >> v;
-        g.addEdge(u, v);
+        double w;
+        string buildingName = "";
+        
+        cin >> u >> v >> w;
+        if (cin.peek() != '\n'){ // should check if line m contains a name.
+            cin >> buildingName;
+        }
+
+        g.addEdge(u, v, w, buildingName);
     }
     return (g);
 }
