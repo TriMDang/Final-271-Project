@@ -37,11 +37,11 @@ Graph& Graph::operator=(const Graph& other) {
     return *this; 
 }
 
-void Graph::addVertex(int u, double x, double y){
+void Graph::addVertex(long u, double x, double y){
     vertices[u] = make_tuple(x, y);
 }
 
-void Graph::addEdge(int u, int v, double weight, string name){
+void Graph::addEdge(long u, long v, double weight, string name){
     adjacencyList[u].push_back(make_tuple(v, weight, name));
 }
 
@@ -54,22 +54,24 @@ void Graph::addEdge(int u, int v, double weight, string name){
 // Description: This should take in denison.out inputs and store the data.
 //=========================================
 Graph Graph::readFromSTDIN() {
-    int n, m;
+    long n, m;
     cin >> n >> m; // Read the number of vertices (n) and edges (m)
 
     Graph g;
+    long verticesProcessed, edgesProcessed;
 
     // adding all the vertices
     for (int i = 0; i < n; ++i) { // check the <= n or < n; check index if correct
-        int ID;
+        long ID;
         double x, y; // for readability, not necessary I don't think...
         cin >> ID >> x >> y;
         g.addVertex(ID, x, y);
+        verticesProcessed = i;
     }
 
     // adding all the edges
     for (int i = 0; i < m; ++i){
-        int u, v;
+        long u, v;
         double w;
         string buildingName = "";
         
@@ -79,6 +81,9 @@ Graph Graph::readFromSTDIN() {
         }
 
         g.addEdge(u, v, w, buildingName);
+        edgesProcessed = i;
     }
+    
+    cout << "Successful!" << endl << "Vertices Processed: " << verticesProcessed << endl << "Edges Processed: " << edgesProcessed << endl;
     return (g);
 }

@@ -17,8 +17,8 @@ using namespace std;
 
 class Graph {
 private:
-    unordered_map<int, tuple<double, double>> vertices; // store vertices, <vertex key, <x, y>>
-    unordered_map<int, vector<tuple<int, double, string>>> adjacencyList; // store edges; <u, <v, weight, name>>
+    unordered_map<long, tuple<double, double>> vertices; // store vertices, <vertex key, <x, y>>
+    unordered_map<long, vector<tuple<long, double, string>>> adjacencyList; // store edges; <u, <v, weight, name>>
     
     //unordered_map<int, vector<int> > adjacencyList; // stores edges
     //vector<int> sorted; // for topological order
@@ -34,8 +34,10 @@ public:
     Graph(const Graph& other);   // Copy constructor
     Graph& operator=(const Graph& other);
     static Graph readFromSTDIN();
-    void addEdge(int u, int v, double weight, string name=""); // name="" prevents line with no names
-    void addVertex(int u, double x, double y);
+    void addEdge(long u, long v, double weight, string name=""); // name="" prevents line with no names
+    void addVertex(long u, double x, double y);
+
+
 
     //bool edgeIn(int u, int v);
     //void deleteVertex(int u);
