@@ -86,7 +86,7 @@ Graph Graph::readFromSTDIN() {
         edgesProcessed = i;
         cout << u << " " << v << " " << w << " " << buildingName << " " << endl; // for data verifications
     }
-    
-    cout << "Successful!" << endl << "Vertices Processed: " << verticesProcessed << endl << "Edges Processed: " << edgesProcessed << endl;
+    // due to indexing, both verticesProcessed and EdgesProcessed are behind by 1. 0 -> n, m  should still work!
+    cout << "Successful!" << endl << "Vertices Processed + 1: " << verticesProcessed << endl << "Edges Processed + 1: " << edgesProcessed << endl;
     return (g);
 }
