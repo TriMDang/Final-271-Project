@@ -16,19 +16,43 @@
 
 using namespace std;
 
+//=========================================
+// Author: Tri Dang
+// Parameter: None
+// Return: None. graph is constructed
+// Description: Construct graph.
+//=========================================
 Graph::Graph(){
 }
 
+//=========================================
+// Author: Tri Dang
+// Parameter: None
+// Return: None. Graph deleted
+// Description: Deletes everything.
+//=========================================
 Graph::~Graph(){
     adjacencyList.clear();
     vertices.clear();
 }
 
+//=========================================
+// Author: Tri Dang
+// Parameter: Other Graph
+// Return: None
+// Description: Makes a new graph then copies everything from the other graph.
+//=========================================
 Graph::Graph(const Graph& other) {
     adjacencyList = other.adjacencyList; 
     vertices = other.vertices;              
 }
 
+//=========================================
+// Author: Tri Dang
+// Parameter: Other Graph
+// Return: This graph
+// Description: Similar to copy constructor except it works on a prexisting graph.
+//=========================================
 Graph& Graph::operator=(const Graph& other) {
     if (this != &other) { 
         adjacencyList = other.adjacencyList; 
@@ -37,10 +61,23 @@ Graph& Graph::operator=(const Graph& other) {
     return *this; 
 }
 
+//=========================================
+// Author: Tri Dang
+// Parameter: node u, x coord, y coord
+// Return: None
+// Description: for reach node u, give the x and y.
+//=========================================
+
 void Graph::addVertex(long u, double x, double y){
     vertices[u] = make_tuple(x, y);
 }
 
+//=========================================
+// Author: Tri Dang
+// Parameter: node u, node v, weight, and location name
+// Return: None
+// Description: For the node key u, add it directs to v with a weight and name in a tuple.
+//=========================================
 void Graph::addEdge(long u, long v, double weight, string name){
     adjacencyList[u].push_back(make_tuple(v, weight, name));
 }
@@ -51,7 +88,7 @@ void Graph::addEdge(long u, long v, double weight, string name){
 // Author: Tri Dang
 // Parameter: None. Is an assignment for any graph
 // Return: None. Reassign the graph into an STDIN with n nodes, m edges, and all node-to-node edges
-// Description: This should take in denison.out inputs and store the data.
+// Description: Modified from Project 4. This should take in denison.out inputs and store the data.
 //=========================================
 Graph Graph::readFromSTDIN() {
     long n, m;
