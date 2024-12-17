@@ -13,6 +13,7 @@
 #include <climits>
 #include <set>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -91,8 +92,12 @@ void Graph::addEdge(long u, long v, double weight, string name){
 // Description: Modified from Project 4. This should take in denison.out inputs and store the data.
 //=========================================
 Graph Graph::readFromSTDIN() {
+    string fileName;
+    cout << "Enter File Name: ";
+    cin >> fileName;
+    ifstream inputFile(fileName);
     long n, m;
-    cin >> n >> m; // Read the number of vertices (n) and edges (m)
+    inputFile >> n >> m; // Read the number of vertices (n) and edges (m)
 
     Graph g;
     long verticesProcessed, edgesProcessed;
@@ -101,7 +106,7 @@ Graph Graph::readFromSTDIN() {
     for (int i = 0; i < n; ++i) { // check the <= n or < n; check index if correct
         long ID;
         double x, y; // for readability, not necessary I don't think...
-        cin >> ID >> x >> y;
+        inputFile >> ID >> x >> y;
         g.addVertex(ID, x, y);
         verticesProcessed = i;
         //cout << ID << " " << x << " " << y << " " << endl; // for data verifications
@@ -113,17 +118,17 @@ Graph Graph::readFromSTDIN() {
         double w;
         string buildingName = "";
         
-        cin >> u >> v >> w;
+        inputFile >> u >> v >> w;
 
-        if (cin.peek() == ' '){ // should check if line m contains a name.
-            getline(cin, buildingName); // getline over cin, idk why it works tho
-        }
+        getline(inputFile, buildingName);
+
 
         g.addEdge(u, v, w, buildingName);
         edgesProcessed = i;
-        cout << u << " " << v << " " << w << " " << buildingName << " " << endl; // for data verifications
+        //cout << u << " " << v << " " << w << " " << buildingName << " " << endl; // for data verifications
     }
     // due to indexing, both verticesProcessed and EdgesProcessed are behind by 1. 0 -> n, m  should still work!
+    inputFile.close();
     cout << "Successful!" << endl << "Vertices Processed + 1: " << verticesProcessed << endl << "Edges Processed + 1: " << edgesProcessed << endl;
     return (g);
 }
