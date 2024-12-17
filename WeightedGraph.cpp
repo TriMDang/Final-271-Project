@@ -96,11 +96,15 @@ Graph Graph::readFromSTDIN() {
     cout << "Enter File Name: ";
     cin >> fileName;
     ifstream inputFile(fileName);
+
+    if (!inputFile) {
+        cout << "No such file..." << endl;
+        return Graph();  // Return an empty graph if file can't be opened
+    }
     long n, m;
     inputFile >> n >> m; // Read the number of vertices (n) and edges (m)
 
     Graph g;
-    long verticesProcessed, edgesProcessed;
 
     // adding all the vertices
     for (int i = 0; i < n; ++i) { // check the <= n or < n; check index if correct
@@ -108,7 +112,6 @@ Graph Graph::readFromSTDIN() {
         double x, y; // for readability, not necessary I don't think...
         inputFile >> ID >> x >> y;
         g.addVertex(ID, x, y);
-        verticesProcessed = i;
         //cout << ID << " " << x << " " << y << " " << endl; // for data verifications
     }
 
@@ -124,11 +127,8 @@ Graph Graph::readFromSTDIN() {
 
 
         g.addEdge(u, v, w, buildingName);
-        edgesProcessed = i;
         //cout << u << " " << v << " " << w << " " << buildingName << " " << endl; // for data verifications
     }
-    // due to indexing, both verticesProcessed and EdgesProcessed are behind by 1. 0 -> n, m  should still work!
     inputFile.close();
-    cout << "Successful!" << endl << "Vertices Processed + 1: " << verticesProcessed << endl << "Edges Processed + 1: " << edgesProcessed << endl;
     return (g);
 }
