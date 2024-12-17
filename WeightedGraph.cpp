@@ -92,8 +92,8 @@ void Graph::addEdge(long u, long v, double weight, string name){
 // Description: Modified from Project 4. This should take in denison.out inputs and store the data.
 //=========================================
 Graph Graph::readFromSTDIN() {
-    string fileName;
-    cout << "Enter File Name: ";
+    string fileName = "";
+    cout << endl << "Enter File Name: ";
     cin >> fileName;
     ifstream inputFile(fileName);
 
@@ -101,6 +101,7 @@ Graph Graph::readFromSTDIN() {
         cout << "No such file..." << endl;
         return Graph();  // Return an empty graph if file can't be opened
     }
+
     long n, m;
     inputFile >> n >> m; // Read the number of vertices (n) and edges (m)
 
@@ -130,5 +131,6 @@ Graph Graph::readFromSTDIN() {
         //cout << u << " " << v << " " << w << " " << buildingName << " " << endl; // for data verifications
     }
     inputFile.close();
+    cout << "Successful retrieval!" << endl << endl;
     return (g);
 }
