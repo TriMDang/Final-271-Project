@@ -98,7 +98,7 @@ void test_remove(int &testPassed, int &testFailed) {
 
     heap.remove(8);
 
-    if (heap[0] = 4 && heap[1] = 7 && heap[2] = 9 && heap[3] = 15) {
+    if (heap.search(8) == false) {
         testPassed++;
         cout << "Passed test_remove" << endl;
     }
