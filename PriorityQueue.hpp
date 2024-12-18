@@ -18,17 +18,17 @@ class MinPQueue {
     private:
         vector<T> minArray; //Store the values of the priority queue
         int size;
-        //int left(i);
-        //int right(i);
+        int left(int index);
+        int right(int index);
 
     public:
         MinPQueue(); //Default constructor
         ~MinPQueue(); //Destructor
         MinPQueue(const MinPQueue<T>& other); //Copy constructor
-        T& operator=(const MinPQueue& other);
+        MinPQueue<T>& operator=(const MinPQueue<T>& other);
         T& operator[](int i);
-        void heapify(const T&, int i);
-        void buildHeap(const T&, int s);
+        void heapify(const MinPQueue<T>&, int i);
+        void buildHeap(const MinPQueue<T>&, int s);
         bool search(const T& value);
         void insert(const T& value);
         T getMin() const;

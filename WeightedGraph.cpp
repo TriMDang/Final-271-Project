@@ -108,9 +108,9 @@ Graph Graph::readFromSTDIN() {
     Graph g;
 
     // adding all the vertices
-    for (int i = 0; i < n; ++i) { // check the <= n or < n; check index if correct
+    for (int i = 0; i < n; ++i) {
         long ID;
-        double x, y; // for readability, not necessary I don't think...
+        double x, y;
         inputFile >> ID >> x >> y;
         g.addVertex(ID, x, y);
         //cout << ID << " " << x << " " << y << " " << endl; // for data verifications
@@ -124,7 +124,7 @@ Graph Graph::readFromSTDIN() {
         
         inputFile >> u >> v >> w;
 
-        getline(inputFile, buildingName);
+        getline(inputFile, buildingName); // scan for name if it exists
 
 
         g.addEdge(u, v, w, buildingName);

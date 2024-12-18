@@ -1,8 +1,6 @@
 #include "WeightedGraph.hpp"
 #include "PriorityQueue.hpp"
 #include <iostream>
-#include "WeightedGraph.hpp"
-#include "PriorityQueue.hpp"
 #include <iostream>
 
 void test_heapify(int &testPassed, int &testFailed);

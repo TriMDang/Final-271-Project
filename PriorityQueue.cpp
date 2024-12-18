@@ -6,6 +6,7 @@
 //=========================================
 
 #include "PriorityQueue.hpp"
+#include "customexceptions.hpp"
 #include <iostream>
 
 using namespace std;
@@ -29,7 +30,7 @@ MinPQueue<T>::MinPQueue() {
 //=========================================
 template <typename T>
 MinPQueue<T>::~MinPQueue() {
-    heap.clear();
+    minArray.clear();
 }
 
 //=========================================
@@ -69,10 +70,10 @@ MinPQueue<T>& MinPQueue<T>::operator=(const MinPQueue<T>& other) {
 template<typename T>
 T& MinPQueue<T>::operator[](int i) {
     if (i >= size) {
-        return;
+        throw index_exception();
     }
     else {
-        return heap[index];
+        return minArray[i];
     }
 }
 
@@ -84,7 +85,7 @@ T& MinPQueue<T>::operator[](int i) {
 // smallest value of the sub tree
 //=========================================
 template <typename T>
-void MinPQueue<T>::heapify(const T& array, int i) {
+void MinPQueue<T>::heapify(const MinPQueue<T>& array, int i) {
     int l = left(i);
     int r = right(i);
     int smallest = i;
@@ -106,7 +107,6 @@ void MinPQueue<T>::heapify(const T& array, int i) {
         heapify(array, smallest);
     }
 
-}
 }
 
 //=========================================
@@ -132,8 +132,8 @@ void MinPQueue<T>::buildHeap(const T& array, int s) {
 //=========================================
 template<typename T>
 bool MinPQueue<T>::search(const T& value) {
-    for (i = 0; i < size; i++) {
-        if (minArray[i] == value;) {
+    for (int i = 0; i < size; i++) {
+        if (minArray[i] == value) {
             return true;
         }
         else {
@@ -148,6 +148,7 @@ bool MinPQueue<T>::search(const T& value) {
 // Return: None
 // Description: Inserts a value into the Priority Queue
 //=========================================
+template<typename T>
 void MinPQueue<T>::insert(const T& value) {
     if (size == minArray.size()) {
         minArray.push_back(value);
@@ -159,7 +160,7 @@ void MinPQueue<T>::insert(const T& value) {
     size++;
     int i = size -1;
     while(i > 0) {
-        int parent = (index - 1) / 2;
+        int parent = (i - 1) / 2;
 
         if (minArray[i] >= minArray[parent]) {
             break;
@@ -180,7 +181,7 @@ void MinPQueue<T>::insert(const T& value) {
 // Description: Finds and returns the min value in the queue
 //=========================================
 template <typename T>
-const T& MinPQueue<T>::getMin() const {
+T MinPQueue<T>::getMin() const {
     if (size == 0) {
         return;
     }
@@ -210,3 +211,13 @@ void minPQueue<T>::remove(const T& value){
     heapify(i);
 }
 
+
+template <typename T>
+int minPQueue<T>::left(int index){
+    return (2 * index);
+}
+
+template <typename T>
+int minPQueue<T>::right(int index){
+    return ((2 * index) + 1);
+}
