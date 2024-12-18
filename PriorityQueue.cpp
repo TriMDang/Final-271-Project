@@ -127,6 +127,24 @@ long MinPQueue::size() {
 
 //=========================================
 // Author: Esther Zhang
+// Parameter: Value to be searched
+// Return: True if found, false if not
+// Description: Searches for a value in the queue
+//=========================================
+template<typename T>
+bool MinPQueue::search(const T& value) {
+    for (i = 0; i < heap.size(); i++) {
+        if (heap[i] == value;) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
+//=========================================
+// Author: Esther Zhang
 // Parameter: 
 // Return: The min value in the queue
 // Description: Finds and returns the min value in the queue
