@@ -78,39 +78,35 @@ T& MinPQueue<T>::operator[](int i) {
     }
 }
 
-
-
-/*
-Omar Perez
-Parameter: index
-REturn: left child of the index
-*/
+//=========================================
+// Omar Perez
+// Parameter: index
+// Return: left child of the index
+//=========================================
 template <typename T>
 int MinPQueue<T>::left(int index){
     return (2 * index);
 }
 
-
-/*
-OMar Perez
-Parameter: index
-Return: The right child of the index
-*/
+//=========================================
+// Omar Perez
+// Parameter: index
+// Return: The right child of the index
+//=========================================
 template <typename T>
 int MinPQueue<T>::right(int index){
     return ((2 * index) + 1);
 }
 
-/*
-Omar Perez
-PArameter: index
-Return: parent of the index. used for internal operations
-*/
+//=========================================
+// Omar Perez
+// PArameter: index
+// Return: parent of the index. used for internal operations
+//=========================================
 template <typename T> 
 int MinPQueue<T> :: parent (int index){
     return((index - 1) / 2);
 }
-
 
 //=========================================
 // Author: Esther Zhang
@@ -138,9 +134,6 @@ void MinPQueue<T>::heapify(int i) {
     }
 }
 
-
-
-
 //=========================================
 // Author: Esther Zhang
 // Parameter: Existing queue
@@ -148,16 +141,12 @@ void MinPQueue<T>::heapify(int i) {
 // Description: Converts and existing queue to a min priority queue
 //=========================================
 template <typename T>
-//error in the declaration 
 void MinPQueue<T>::buildHeap(int s) {
     size = s; // Set the size based on the input parameter
     for (int i = (size / 2) - 1; i >= 0; i--) { // Start from last internal node
         heapify(i); // Heapify each subtree
     }
 }
-
-
-
 
 //=========================================
 // Author: Esther Zhang
@@ -193,7 +182,6 @@ void MinPQueue<T>::insert(const T& value) {
     }
 }
 
-
 //=========================================
 // Author: Esther Zhang
 // Parameter: 
@@ -226,22 +214,20 @@ void MinPQueue<T>::remove(const T& value) {
             heapify(i);
             return;
         }
-        else if (minArray[i] != value) {
-            throw invalid_value();
-        }
+            
     }
+    throw invalid_value();
     //maybe implement something if the val is not found here
 }
 
-
-/*
-Author: Omar Perez
-Parameter: none
-Return: int, min value 
-Description: while the heap isnt empty we return 
-the min value and delete it from the queue. 
-fixing the min heap property is guaranteed by calling heapify(0)
-*/
+//=========================================
+// Author: Omar Perez
+// Parameter: none
+// Return: int, min value 
+// Description: while the heap isnt empty we return 
+// the min value and delete it from the queue. 
+// fixing the min heap property is guaranteed by calling heapify(0)
+//=========================================
 template <typename T>
 T MinPQueue<T>::extractMin() {
     if (size == 0) {
@@ -260,14 +246,11 @@ T MinPQueue<T>::extractMin() {
     return minValue;
 }
 
-
-
-
-/*
-Omar Perez
-Check input
-complete comments
-*/
+//=========================================
+// Omar Perez
+// Check input
+// complete comments
+//=========================================
 template <typename T>
 void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
     if (i < 0 || i >= size) {
