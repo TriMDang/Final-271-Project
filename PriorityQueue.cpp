@@ -28,10 +28,19 @@ MinPQueue<T>::MinPQueue() {
 // Return: None. Queue is deleted
 // Description: Deletes everything
 //=========================================
+
+
 template <typename T>
+<<<<<<< HEAD
 MinPQueue<T>::~MinPQueue() {
     minArray.clear();
+=======
+MinPQueue<T>::MinPQueue(const MinPQueue& other) {
+    size = other.size;
+    heap = other.heap;
+>>>>>>> refs/remotes/origin/main
 }
+
 
 //=========================================
 // Author: Esther Zhang
@@ -76,6 +85,10 @@ T& MinPQueue<T>::operator[](int i) {
         return minArray[i];
     }
 }
+template <typename T>
+
+
+
 
 //=========================================
 // Author: Esther Zhang

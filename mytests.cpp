@@ -1,7 +1,10 @@
 #include "WeightedGraph.hpp"
 #include "PriorityQueue.hpp"
 #include <iostream>
+<<<<<<< HEAD
 #include <iostream>
+=======
+>>>>>>> refs/remotes/origin/main
 
 void test_heapify(int &testPassed, int &testFailed);
 void test_buildHeap(int &testPassed, int &testFailed);
