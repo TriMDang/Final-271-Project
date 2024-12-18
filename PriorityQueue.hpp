@@ -18,9 +18,7 @@ class MinPQueue {
     private:
         vector<T> minArray; //Store the values of the priority queue
         int size;
-        int left(int index);
-        int right(int index);
-        int parent (int index);
+      
     public:
         MinPQueue(); //Default constructor
         ~MinPQueue(); //Destructor
@@ -35,6 +33,9 @@ class MinPQueue {
         void remove(const T& value);
         T extractMin();
         void decreaseKey(int i, const T& newValue);
+        int left(int index);
+        int right(int index);
+        int parent (int index);
         
 };
 

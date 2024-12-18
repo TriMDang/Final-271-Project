@@ -253,16 +253,20 @@ T MinPQueue<T>::extractMin() {
 //=========================================
 template <typename T>
 void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
-    if (i < 0 || i >= size) {
-        throw index_exception();
-    }
-    if (newValue > minArray[i]) {
-        throw invalid_arguments();
-    }
+ MinPQueue<int> pQueue;
 
-    minArray[i] = newValue; 
-    while (i > 0 && minArray[parent(i)] > minArray[i]) {
-        swap(minArray[i], minArray[parent(i)]);
-        i = parent(i);
-    }
+
+    pQueue.insert(1);
+    pQueue.insert(5);
+    pQueue.insert(7);
+    pQueue.insert(8);
+    pQueue.insert(3);
+    pQueue.insert(9);
+
+
+    pQueue.decreaseKey(4, 2); // Decrease the value at index 4 (original value 3) to 2
+
+
+
+
 }

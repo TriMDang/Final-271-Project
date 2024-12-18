@@ -8,6 +8,9 @@ void test_search(int &testPassed, int &testFailed);
 void test_insert(int &testpassed, int &testFailed);
 void test_getMin(int &testPassed, int &testFailed);
 void test_remove(int &testPassed, int &testFailed);
+void test_extractmin(int &testPassed, int &testFailed);
+void test_decreasekey(int &testPassed, int &testFailed);
+void test_left_right(int &testPassed, int &testFailed);
 
 using namespace std;
 
@@ -21,6 +24,10 @@ int main(){
     test_insert(testsPassed, testsFailed);
     test_getMin(testsPassed, testsFailed);
     test_remove(testsPassed, testsFailed);
+    //test_extractmin(int &testPassed, int &testFailed)
+    //test_decreasekey(int &testPassed, int &testFailed);
+    //test_extractmin(testsPassed, testsFailed);
+    //test_left_right(int &testPassed, int &testFailed);
     //Graph g;
     //g.readFromSTDIN();
 
@@ -147,4 +154,79 @@ void test_remove(int &testPassed, int &testFailed) {
         testFailed++;
         cout << "Failed test_remove" << endl;
     }
+}
+
+
+
+void test_extractmin(int &testPassed, int &testFailed){
+    MinPQueue<int> pQueue;
+
+    pQueue.insert(1);
+    pQueue.insert(5);
+    pQueue.insert(7);
+    pQueue.insert(8);
+    pQueue.insert(3);
+    pQueue.insert(9);
+
+    pQueue.extractMin();
+    int newmin= pQueue.getMin();
+    
+    if (newmin== 3){
+        testPassed++;
+    }
+    else{
+        testFailed++;
+        cout << "Failed test_remove" << endl;
+    }
+
+ 
+
+}
+
+void test_decreasekey(int &testPassed, int &testFailed){
+     MinPQueue<int> pQueue;
+
+    pQueue.insert(10);
+    pQueue.insert(20);
+    pQueue.insert(15);
+    pQueue.insert(30);
+    pQueue.insert(25);
+
+    // Decrease the key of value 20 to 5
+    pQueue.decreaseKey(20, 5);
+
+    if (pQueue.getMin() == 5) {
+        testPassed++;
+        cout << "Passed test_decreasekey" << endl;
+    }
+    else {
+        testFailed++;
+        cout << "Failed test_decreasekey" << endl;
+    }
+
+}
+
+
+void test_left_right(int &testPassed, int &testFailed) {
+      MinPQueue<int> pQueue;
+
+    
+    pQueue.insert(10);
+    pQueue.insert(15);
+    pQueue.insert(20);
+
+   
+    int leftChild = pQueue.left(0);  
+    int rightChild = pQueue.right(0);
+
+
+    if (leftChild == 1 && rightChild == 2) { // Left and right indices for a 0-based heap
+        testPassed++;
+        cout << "Passed test_left_right" << endl;
+    }
+    else {
+        testFailed++;
+        cout << "Failed test_left_right" << endl;
+    }
+
 }
