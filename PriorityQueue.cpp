@@ -226,8 +226,10 @@ void MinPQueue<T>::remove(const T& value) {
             heapify(i);
             return;
         }
+        else {                                     //if the val is not found
+            throw invalid_value();
+        }
     }
-    //maybe implement something if the val is not found here
 }
 
 
