@@ -80,32 +80,32 @@ T& MinPQueue<T>::operator[](int i) {
 
 
 
-/*
-Omar Perez
-Parameter: index
-REturn: left child of the index
-*/
+//=========================================
+// Omar Perez
+// Parameter: index
+// Return: left child of the index
+//=========================================
 template <typename T>
 int MinPQueue<T>::left(int index){
     return (2 * index);
 }
 
 
-/*
-OMar Perez
-Parameter: index
-Return: The right child of the index
-*/
+//=========================================
+// Omar Perez
+// Parameter: index
+// Return: The right child of the index
+//=========================================
 template <typename T>
 int MinPQueue<T>::right(int index){
     return ((2 * index) + 1);
 }
 
-/*
-Omar Perez
-PArameter: index
-Return: parent of the index. used for internal operations
-*/
+//=========================================
+// Omar Perez
+// Parameter: index
+// Return: parent of the index. used for internal operations
+//=========================================
 template <typename T> 
 int MinPQueue<T> :: parent (int index){
     return((index - 1) / 2);
@@ -121,20 +121,20 @@ int MinPQueue<T> :: parent (int index){
 //=========================================
 template <typename T>
 //error in the declaration
-void MinPQueue<T>::heapify(const MinPQueue<T>& array, int i) {
+void MinPQueue<T>::heapify(int i) {
     int l = left(i);
     int r = right(i);
     int smallest = i;
 
-    if (l < size && array.minArray[l] < array.minArray[i]) {
+    if (l < size && minArray[l] < minArray[i]) {
         smallest = l;
     }
-    if (r < size && array.minArray[r] < array.minArray[smallest]) {
+    if (r < size && minArray[r] < minArray[smallest]) {
         smallest = r;
     }
     if (smallest != i) {
-        swap(array.minArray[i], array.minArray[smallest]);
-        heapify(array, smallest);
+        swap(minArray[i], minArray[smallest]);
+        heapify(smallest);
     }
 }
 
@@ -149,10 +149,10 @@ void MinPQueue<T>::heapify(const MinPQueue<T>& array, int i) {
 //=========================================
 template <typename T>
 //error in the declaration 
-void MinPQueue<T>::buildHeap(const MinPQueue<T>& array, int s) {
+void MinPQueue<T>::buildHeap(int s) {
     size = s; // Set the size based on the input parameter
     for (int i = (size / 2) - 1; i >= 0; i--) { // Start from last internal node
-        heapify(array, i); // Heapify each subtree
+        heapify(i); // Heapify each subtree
     }
 }
 
@@ -231,14 +231,14 @@ void MinPQueue<T>::remove(const T& value) {
 }
 
 
-/*
-Author: Omar Perez
-Parameter: none
-Return: int, min value 
-Description: while the heap isnt empty we return 
-the min value and delete it from the queue. 
-fixing the min heap property is guaranteed by calling heapify(0)
-*/
+//=========================================
+// Author: Omar Perez
+// Parameter: none
+// Return: int, min value 
+// Description: while the heap isnt empty we return 
+// the min value and delete it from the queue. 
+// fixing the min heap property is guaranteed by calling heapify(0)
+//=========================================
 template <typename T>
 T MinPQueue<T>::extractMin() {
     if (size == 0) {
@@ -260,11 +260,11 @@ T MinPQueue<T>::extractMin() {
 
 
 
-/*
-Omar Perez
-Check input
-complete comments
-*/
+//=========================================
+// Omar Perez
+// Check input
+// complete comments
+//=========================================
 template <typename T>
 void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
     if (i < 0 || i >= size) {
@@ -280,7 +280,3 @@ void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
         i = parent(i);
     }
 }
-
-
-
-
