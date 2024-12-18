@@ -12,7 +12,7 @@
 using namespace std;
 
 //=========================================
-// Author: Esther Zhang
+// Author: Esther Zhang 
 // Parameter: None
 // Return: None. Queue is constructed
 // Description: Construct minimum prioity queue
@@ -20,7 +20,8 @@ using namespace std;
 template <typename T>
 MinPQueue<T>::MinPQueue() {
     size = 0;
-}
+  
+    }
 
 //=========================================
 // Author: Esther Zhang
@@ -42,8 +43,8 @@ MinPQueue<T>::~MinPQueue() {
 //=========================================
 template <typename T>
 MinPQueue<T>::MinPQueue(const MinPQueue& other) {
-    size = other.size();
-    minArray(other.minArray);
+    size = other.size;
+    minArray = other.minArray;
 }
 
 //=========================================
@@ -54,11 +55,10 @@ MinPQueue<T>::MinPQueue(const MinPQueue& other) {
 //=========================================
 template <typename T>
 MinPQueue<T>& MinPQueue<T>::operator=(const MinPQueue<T>& other) {
-    if (this != &other) {
-        size = other.size;
+      if (this != &other) {
         minArray = other.minArray;
+        size = other.size;
     }
-
     return *this;
 } 
 
@@ -280,4 +280,12 @@ OMar Perez
 template <typename T>
 int MinPQueue<T>::right(int index){
     return ((2 * index) + 1);
+}
+
+/*
+
+*/
+template <typename T> 
+int MinPQueue<T> :: parent (int index){
+    return((index - 1) / 2)
 }

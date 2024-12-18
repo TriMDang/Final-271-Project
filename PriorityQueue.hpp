@@ -20,7 +20,7 @@ class MinPQueue {
         int size;
         int left(int index);
         int right(int index);
-
+        int parent (int index);
     public:
         MinPQueue(); //Default constructor
         ~MinPQueue(); //Destructor
