@@ -27,8 +27,8 @@ class MinPQueue {
         MinPQueue(const MinPQueue<T>& other); //Copy constructor
         T& operator=(const MinPQueue& other);
         T& operator[](int i);
-        void heapify(int i);
-        void buildHeap();
+        void heapify(const T&, int i);
+        void buildHeap(const T&, int s);
         long size();
         bool search(const T& value);
         void insert(const T& value);
