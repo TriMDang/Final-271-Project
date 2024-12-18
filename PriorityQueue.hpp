@@ -33,7 +33,7 @@ class MinPQueue {
         void insert(const T& value);
         T getMin() const;
         int extractMin();
-        void decreaseKey();
+        void decreaseKey(int i, const T& newValue);
         void remove(const T& value);
 };
 

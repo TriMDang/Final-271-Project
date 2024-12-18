@@ -213,3 +213,71 @@ template <typename T>
 int MinPQueue<T>::right(int index){
     return ((2 * index) + 1);
 }
+
+/*
+Omar Perez
+Check input
+complete comments
+*/
+template <typename T>
+void MinPQueue::decreaseKey(int i, const T& newValue){
+    if (i < 0 || i >= size) {
+        index_exception();
+    }
+    if (newValue > heap[i]) {
+        invalid_argument();
+    }
+
+    heap[i] = newValue; 
+    while (i > 0 && heap[parent(i)] > heap[i]) {
+        swap(heap[i], heap[parent(i)]);
+        i = parent(i);
+    }
+}
+
+
+
+/*
+Author: Omar Perez
+Parameter: none
+Return: int, min value 
+Description: while the heap isnt empty we return 
+the min value and delete it from the queue. 
+fixing the min heap property is guaranteed by calling heapify(0)
+*/
+template <typename T> 
+int MinPQueue :: extractMin(){
+    if (size == 0) {
+        throw empty_heap();
+    }
+
+    T minValue = heap[0]; 
+    heap[0] = heap[size - 1]; 
+    heap.pop_back(); 
+    --size;
+
+    heapify(0); 
+    return minValue;
+}
+
+
+
+
+/*
+Omar Perez
+
+*/
+template <typename T>
+int MinPQueue<T>::left(int index){
+    return (2 * index);
+}
+
+
+/*
+OMar Perez
+
+*/
+template <typename T>
+int MinPQueue<T>::right(int index){
+    return ((2 * index) + 1);
+}
