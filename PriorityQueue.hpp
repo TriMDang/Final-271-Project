@@ -16,26 +16,26 @@ using namespace std;
 template <typename T>
 class MinPQueue {
     private:
-        vector<T> heap; //Store the values of the priority queue
+        vector<T> minArray; //Store the values of the priority queue
+        int size;
         //int left(i);
         //int right(i);
 
     public:
         MinPQueue(); //Default constructor
         ~MinPQueue(); //Destructor
-        MinPQueue(const MinPQueue& other); //Copy constructor
-        MinPQueue& operator=(const MinPQueue& other);
-        MinPQueue& operator[](int i);
+        MinPQueue(const MinPQueue<T>& other); //Copy constructor
+        T& operator=(const MinPQueue& other);
+        T& operator[](int i);
         void heapify(int i);
         void buildHeap();
         long size();
         bool search(const T& value);
         void insert(const T& value);
-        T getMin();
+        T getMin() const;
         int extractMin();
         void decreaseKey();
         void remove(const T& value);
 };
 
 #endif
-
