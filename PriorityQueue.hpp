@@ -29,7 +29,8 @@ class MinPQueue {
         void heapify(int i);
         void buildHeap();
         long size();
-        //void insert(value);
+        bool search(const T& value);
+        void insert(const T& value);
         T getMin();
         int extractMin();
         void decreaseKey();
@@ -37,3 +38,4 @@ class MinPQueue {
 };
 
 #endif
+
