@@ -189,7 +189,7 @@ void MinPQueue<T>::insert(const T& value) {
 template <typename T>
 T MinPQueue<T>::getMin() const {
     if (size == 0) {
-        return;
+        throw empty_heap();
     }
     else {
         return (minArray[0]);
@@ -203,13 +203,13 @@ T MinPQueue<T>::getMin() const {
 // Description: Searches and deletes a value in the min prioity queue
 //=========================================
 template <typename T>
-void minPQueue<T>::remove(const T& value){
-    int temp = 0;
+void MinPQueue<T>::remove(const T& value){
+    T temp = 0;
     int i = search(value);
     if (i == false) {
         return;
     }
-    T temp = minArray[i];
+    temp = minArray[i];
     minArray[i] = minArray[size-1];
     minArray[size-1] = temp; 
     delete (minArray[minArray.size()-1]);
@@ -219,11 +219,11 @@ void minPQueue<T>::remove(const T& value){
 
 
 template <typename T>
-int minPQueue<T>::left(int index){
+int MinPQueue<T>::left(int index){
     return (2 * index);
 }
 
 template <typename T>
-int minPQueue<T>::right(int index){
+int MinPQueue<T>::right(int index){
     return ((2 * index) + 1);
 }

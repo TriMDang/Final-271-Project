@@ -14,4 +14,11 @@ class index_exception: public exception{
         }
 };
 
+class empty_heap: public exception{
+    public:
+        const char* what() const noexcept override{
+            return "Operation failed: Size = 0! Empty.";
+        }
+};
+
 #endif
