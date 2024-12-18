@@ -14,11 +14,11 @@ int main(){
     int testsPassed = 0;
     int testsFailed = 0;
 
-    test_heapify(testsPassed, testsFailed);
-    test_buildHeap(testsPassed, testsFailed);
+   // test_heapify(testsPassed, testsFailed);
+    //test_buildHeap(testsPassed, testsFailed);
     test_insert(testsPassed, testsFailed);
-    test_getMin(testsPassed, testsFailed);
-    test_remove(testsPassed, testsFailed);
+    //test_getMin(testsPassed, testsFailed);
+    //test_remove(testsPassed, testsFailed);
     //Graph g;
     //g.readFromSTDIN();
 

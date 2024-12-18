@@ -80,6 +80,37 @@ T& MinPQueue<T>::operator[](int i) {
 
 
 
+/*
+Omar Perez
+Parameter: index
+REturn: left child of the index
+*/
+template <typename T>
+int MinPQueue<T>::left(int index){
+    return (2 * index);
+}
+
+
+/*
+OMar Perez
+Parameter: index
+Return: The right child of the index
+*/
+template <typename T>
+int MinPQueue<T>::right(int index){
+    return ((2 * index) + 1);
+}
+
+/*
+Omar Perez
+PArameter: index
+Return: parent of the index. used for internal operations
+*/
+template <typename T> 
+int MinPQueue<T> :: parent (int index){
+    return((index - 1) / 2);
+}
+
 
 //=========================================
 // Author: Esther Zhang
@@ -89,29 +120,26 @@ T& MinPQueue<T>::operator[](int i) {
 // smallest value of the sub tree
 //=========================================
 template <typename T>
+//error in the declaration
 void MinPQueue<T>::heapify(const MinPQueue<T>& array, int i) {
     int l = left(i);
     int r = right(i);
     int smallest = i;
-    T temp;
-    if (l <= size && array[l] < array[i]) {
+
+    if (l < size && array.minArray[l] < array.minArray[i]) {
         smallest = l;
     }
-    else {
-        smallest = i;
-    }
-    if (r <= size && array[r] < array[i]) {
+    if (r < size && array.minArray[r] < array.minArray[smallest]) {
         smallest = r;
     }
     if (smallest != i) {
-        T temp = array[i];
-        array[i] = array[smallest];
-        array[smallest] = temp;
-
+        swap(array.minArray[i], array.minArray[smallest]);
         heapify(array, smallest);
     }
-
 }
+
+
+
 
 //=========================================
 // Author: Esther Zhang
@@ -120,13 +148,16 @@ void MinPQueue<T>::heapify(const MinPQueue<T>& array, int i) {
 // Description: Converts and existing queue to a min priority queue
 //=========================================
 template <typename T>
+//error in the declaration 
 void MinPQueue<T>::buildHeap(const MinPQueue<T>& array, int s) {
-    s = size;
-    int n = size/2;
-    for (int i = n; i > 1; i--) {
-        heapify(array, i);
+    size = s; // Set the size based on the input parameter
+    for (int i = (size / 2) - 1; i >= 0; i--) { // Start from last internal node
+        heapify(array, i); // Heapify each subtree
     }
 }
+
+
+
 
 //=========================================
 // Author: Esther Zhang
@@ -140,10 +171,8 @@ bool MinPQueue<T>::search(const T& value) {
         if (minArray[i] == value) {
             return true;
         }
-        else {
-            return false;
-        }
     }
+    return false;
 }
 
 //=========================================
@@ -154,17 +183,16 @@ bool MinPQueue<T>::search(const T& value) {
 //=========================================
 template<typename T>
 void MinPQueue<T>::insert(const T& value) {
-    if (size == minArray.size()) {
-        minArray.push_back(value);
-    }
-    else {
-        minArray[size] == value;
-    }
-
+    minArray.push_back(value);
     size++;
-    heapify(minArray, 0);
-   
+
+    int i = size - 1;
+    while (i > 0 && minArray[parent(i)] > minArray[i]) {
+        swap(minArray[i], minArray[parent(i)]);
+        i = parent(i);
+    }
 }
+
 
 //=========================================
 // Author: Esther Zhang
@@ -189,63 +217,18 @@ T MinPQueue<T>::getMin() const {
 // Description: Searches and deletes a value in the min prioity queue
 //=========================================
 template <typename T>
-void MinPQueue<T>::remove(const T& value){
-    T temp = 0;
-    int i = search(value);
-    if (i == false) {
-        return;
+void MinPQueue<T>::remove(const T& value) {
+    for (int i = 0; i < size; i++) {
+        if (minArray[i] == value) {
+            minArray[i] = minArray[size - 1];
+            minArray.pop_back();
+            size--;
+            heapify(i);
+            return;
+        }
     }
-    temp = minArray[i];
-    minArray[i] = minArray[size-1];
-    minArray[size-1] = temp; 
-    delete (minArray[minArray.size()-1]);
-
-    heapify(minArray, i);
+    //maybe implement something if the val is not found here
 }
-
-//=========================================
-// Author: Tri Dang
-// Parameter: index
-// Return: Left child of index
-// Description: Taken from book. Assume its is an indexing array, formulates the left child
-//=========================================
-template <typename T>
-int MinPQueue<T>::left(int index){
-    return (2 * index);
-}
-
-//=========================================
-// Author: Tri Dang
-// Parameter: Index
-// Return: right child of the index
-// Description: Taken from book. Assume its is an indexing array, formulates the right child
-//=========================================
-template <typename T>
-int MinPQueue<T>::right(int index){
-    return ((2 * index) + 1);
-}
-
-/*
-Omar Perez
-Check input
-complete comments
-*/
-template <typename T>
-void MinPQueue<T>::decreaseKey(int i, const T& newValue){
-    if (i < 0 || i >= size) {
-        throw index_exception();
-    }
-    if (newValue > heap[i]) {
-        throw invalid_arguments();
-    }
-
-    heap[i] = newValue; 
-    while (i > 0 && heap[parent(i)] > heap[i]) {
-        swap(heap[i], heap[parent(i)]);
-        i = parent(i);
-    }
-}
-
 
 
 /*
@@ -256,18 +239,21 @@ Description: while the heap isnt empty we return
 the min value and delete it from the queue. 
 fixing the min heap property is guaranteed by calling heapify(0)
 */
-template <typename T> 
-int MinPQueue :: extractMin(){
+template <typename T>
+T MinPQueue<T>::extractMin() {
     if (size == 0) {
         throw empty_heap();
     }
 
-    T minValue = heap[0]; 
-    heap[0] = heap[size - 1]; 
-    heap.pop_back(); 
-    --size;
+    T minValue = minArray[0];
+    minArray[0] = minArray[size - 1];
+    minArray.pop_back();
+    size--;
 
-    heapify(0); 
+    if (size > 0) {
+        heapify(0);
+    }
+
     return minValue;
 }
 
@@ -276,27 +262,25 @@ int MinPQueue :: extractMin(){
 
 /*
 Omar Perez
-
+Check input
+complete comments
 */
 template <typename T>
-int MinPQueue<T>::left(int index){
-    return (2 * index);
+void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
+    if (i < 0 || i >= size) {
+        throw index_exception();
+    }
+    if (newValue > minArray[i]) {
+        throw invalid_arguments();
+    }
+
+    minArray[i] = newValue; 
+    while (i > 0 && minArray[parent(i)] > minArray[i]) {
+        swap(minArray[i], minArray[parent(i)]);
+        i = parent(i);
+    }
 }
 
 
-/*
-OMar Perez
 
-*/
-template <typename T>
-int MinPQueue<T>::right(int index){
-    return ((2 * index) + 1);
-}
 
-/*
-
-*/
-template <typename T> 
-int MinPQueue<T> :: parent (int index){
-    return((index - 1) / 2)
-}

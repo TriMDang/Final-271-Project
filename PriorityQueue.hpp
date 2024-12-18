@@ -28,13 +28,14 @@ class MinPQueue {
         MinPQueue<T>& operator=(const MinPQueue<T>& other);
         T& operator[](int i);
         void heapify(const MinPQueue<T>& array, int i);
-        void buildHeap(const MinPQueue<T>& array, int s);
+        void buildHeap(std::vector<T>& array, int n);
         bool search(const T& value);
         void insert(const T& value);
         T getMin() const;
-        int extractMin();
-        void decreaseKey(int i, const T& newValue);
         void remove(const T& value);
+        T extractMin();
+        void decreaseKey(int i, const T& newValue);
+        
 };
 
 #endif
