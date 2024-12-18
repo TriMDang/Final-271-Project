@@ -38,6 +38,7 @@ public:
     void addVertex(long u, double x, double y);
 
 
+    unordered_map<long, double> dijkstra(long source);
 
     //bool edgeIn(int u, int v);
     //void deleteVertex(int u);

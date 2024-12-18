@@ -15,6 +15,7 @@
 #include <set>
 #include <algorithm>
 #include <fstream>
+#include <limits> //  For distances
 
 using namespace std;
 
@@ -134,4 +135,33 @@ Graph Graph::readFromSTDIN() {
     inputFile.close();
     cout << "Successful retrieval!" << endl << endl;
     return (g);
+}
+
+
+// Authors: Tri Dang and Omar Perez 
+//Parameter: Source node
+//Return:   
+//Description: Implements Dijkstra's algorithm for the graph
+
+
+unordered_map<long, double> Graph::dijkstra(long source) {
+    // Priority queue to store <distance, vertex>, sorted by min d
+    priority_queue<pair<double, long>, vector<pair<double, long>>, greater<pair<double, long>>> pq;
+    unordered_map<long, double> distances;
+
+    // Initialize distances to infinity for all vertices
+    for (const auto& vertex : vertices) {
+        distances[vertex.first] = numeric_limits<double>::infinity();
+    }
+
+
+    distances[source] = 0;
+
+
+    pq.push({0, source});
+
+    while (!pq.empty()) {
+        
+    }
+
 }
