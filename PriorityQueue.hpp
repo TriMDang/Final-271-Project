@@ -29,7 +29,6 @@ class MinPQueue {
         T& operator[](int i);
         void heapify(const T&, int i);
         void buildHeap(const T&, int s);
-        long size();
         bool search(const T& value);
         void insert(const T& value);
         T getMin() const;
