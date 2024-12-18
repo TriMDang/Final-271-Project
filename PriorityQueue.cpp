@@ -28,8 +28,6 @@ MinPQueue<T>::MinPQueue() {
 // Return: None. Queue is deleted
 // Description: Deletes everything
 //=========================================
-
-
 template <typename T>
 MinPQueue<T>::~MinPQueue() {
     minArray.clear();
