@@ -148,6 +148,8 @@ unordered_map<long, double> Graph::dijkstra(long source) {
     // Priority queue to store <distance, vertex>, sorted by min d
     priority_queue<pair<double, long>, vector<pair<double, long>>, greater<pair<double, long>>> pq;
     unordered_map<long, double> distances;
+    //store visited nodes
+    set<long> visited;
 
     // Initialize distances to infinity for all vertices
     for (const auto& vertex : vertices) {
