@@ -84,28 +84,29 @@ T& MinPQueue<T>::operator[](int i) {
 // smallest value of the sub tree
 //=========================================
 template <typename T>
-void MinPQueue<T>::heapify(int i) {
+void MinPQueue<T>::heapify(const T& array, int i) {
     int l = left(i);
     int r = right(i);
     int smallest = i;
     T temp;
-    if (l <= size && minArray[l] < minArray[i]) {
+    if (l <= size && array[l] < array[i]) {
         smallest = l;
     }
     else {
         smallest = i;
     }
-    if (r <= size && minArray[r] < minArray[i]) {
+    if (r <= size && array[r] < array[i]) {
         smallest = r;
     }
     if (smallest != i) {
-        T temp = minArray[i];
-        minArray[i] = minArray[smallest];
-        minArray[smallest] = temp;
+        T temp = array[i];
+        array[i] = array[smallest];
+        array[smallest] = temp;
 
-        heapify(smallest);
+        heapify(array, smallest);
     }
 
+}
 }
 
 //=========================================
@@ -115,11 +116,11 @@ void MinPQueue<T>::heapify(int i) {
 // Description: Converts and existing queue to a min priority queue
 //=========================================
 template <typename T>
-void MinPQueue<T>::buildHeap() {
-    int size = size;
+void MinPQueue<T>::buildHeap(const T& array, int s) {
+    s = size;
     int n = size/2;
     for (int i = n; i > 1; i--) {
-        heapify(i);
+        heapify(array, i);
     }
 }
 
