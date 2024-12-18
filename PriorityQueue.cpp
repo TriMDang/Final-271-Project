@@ -203,12 +203,23 @@ void MinPQueue<T>::remove(const T& value){
     heapify(minArray, i);
 }
 
-
+//=========================================
+// Author: Tri Dang
+// Parameter: index
+// Return: Left child of index
+// Description: Taken from book. Assume its is an indexing array, formulates the left child
+//=========================================
 template <typename T>
 int MinPQueue<T>::left(int index){
     return (2 * index);
 }
 
+//=========================================
+// Author: Tri Dang
+// Parameter: Index
+// Return: right child of the index
+// Description: Taken from book. Assume its is an indexing array, formulates the right child
+//=========================================
 template <typename T>
 int MinPQueue<T>::right(int index){
     return ((2 * index) + 1);
