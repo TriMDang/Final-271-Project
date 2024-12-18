@@ -31,14 +31,8 @@ MinPQueue<T>::MinPQueue() {
 
 
 template <typename T>
-<<<<<<< HEAD
 MinPQueue<T>::~MinPQueue() {
     minArray.clear();
-=======
-MinPQueue<T>::MinPQueue(const MinPQueue& other) {
-    size = other.size;
-    heap = other.heap;
->>>>>>> refs/remotes/origin/main
 }
 
 
@@ -85,7 +79,6 @@ T& MinPQueue<T>::operator[](int i) {
         return minArray[i];
     }
 }
-template <typename T>
 
 
 
@@ -129,7 +122,7 @@ void MinPQueue<T>::heapify(const MinPQueue<T>& array, int i) {
 // Description: Converts and existing queue to a min priority queue
 //=========================================
 template <typename T>
-void MinPQueue<T>::buildHeap(const T& array, int s) {
+void MinPQueue<T>::buildHeap(const MinPQueue<T>& array, int s) {
     s = size;
     int n = size/2;
     for (int i = n; i > 1; i--) {
