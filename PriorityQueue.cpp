@@ -126,18 +126,6 @@ void MinPQueue<T>::buildHeap(const T& array, int s) {
 
 //=========================================
 // Author: Esther Zhang
-// Paramete  r: 
-// Return: A long of the size of the queue
-// Description: Find the size of the queue
-//=========================================
-template <typename T>
-long MinPQueue<T>::size() {
-    size = minArray.size();
-    return (minArray.size();)
-}
-
-//=========================================
-// Author: Esther Zhang
 // Parameter: 
 // Return: The min value in the queue
 // Description: Finds and returns the min value in the queue
