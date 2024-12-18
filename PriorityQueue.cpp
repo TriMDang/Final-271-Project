@@ -220,12 +220,12 @@ Check input
 complete comments
 */
 template <typename T>
-void MinPQueue::decreaseKey(int i, const T& newValue){
+void MinPQueue<T>::decreaseKey(int i, const T& newValue){
     if (i < 0 || i >= size) {
-        index_exception();
+        throw index_exception();
     }
     if (newValue > heap[i]) {
-        invalid_argument();
+        throw invalid_arguments();
     }
 
     heap[i] = newValue; 

@@ -21,4 +21,12 @@ class empty_heap: public exception{
         }
 };
 
+class invalid_arguments: public exception{
+    public:
+        const char* what() const noexcept override{
+            return "Operation failed: Invalid argument. Perhaps value is bigger than target value?";
+        }
+};
+
+
 #endif
