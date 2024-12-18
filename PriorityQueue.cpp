@@ -27,10 +27,14 @@ MinPQueue<T>::MinPQueue() {
 // Return: None. Queue is deleted
 // Description: Deletes everything
 //=========================================
+
+
 template <typename T>
-MinPQueue<T>::~MinPQueue() {
-    heap.clear();
+MinPQueue<T>::MinPQueue(const MinPQueue& other) {
+    size = other.size;
+    heap = other.heap;
 }
+
 
 //=========================================
 // Author: Esther Zhang
@@ -75,6 +79,10 @@ T& MinPQueue<T>::operator[](int i) {
         return heap[index];
     }
 }
+template <typename T>
+
+
+
 
 //=========================================
 // Author: Esther Zhang
