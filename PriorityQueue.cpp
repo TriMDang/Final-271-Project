@@ -16,8 +16,9 @@ using namespace std;
 // Return: None. Queue is constructed
 // Description: Construct minimum prioity queue
 //=========================================
-MinPQueue::MinPQueue() {
-
+template <typename T>
+MinPQueue<T>::MinPQueue() {
+    size = 0;
 }
 
 //=========================================
@@ -26,7 +27,8 @@ MinPQueue::MinPQueue() {
 // Return: None. Queue is deleted
 // Description: Deletes everything
 //=========================================
-MinPQueue::~MinPQueue() {
+template <typename T>
+MinPQueue<T>::~MinPQueue() {
     heap.clear();
 }
 
@@ -36,8 +38,10 @@ MinPQueue::~MinPQueue() {
 // Return: None. 
 // Description: Creates a new queue then copies everything from the existing queue
 //=========================================
-MinPQueue::MinPQueue(const MinPQueue& other) {
-    this -> heap = other.heap;
+template <typename T>
+MinPQueue<T>::MinPQueue(const MinPQueue& other) {
+    size = other.size();
+    minArray(other.minArray);
 }
 
 //=========================================
@@ -46,9 +50,11 @@ MinPQueue::MinPQueue(const MinPQueue& other) {
 // Return: New/this queue
 // Description: Similar to copy constructor but it works on prexisting queue
 //=========================================
-MinPQueue& MinPQueue::operator=(const MinPQueue& other) {
+template <typename T>
+MinPQueue<T>& MinPQueue<T>::operator=(const MinPQueue<T>& other) {
     if (this != &other) {
-        this -> heap = other.heap;
+        size = other.size;
+        minArray = other.minArray;
     }
 
     return *this;
@@ -60,8 +66,9 @@ MinPQueue& MinPQueue::operator=(const MinPQueue& other) {
 // Return: The value at said index
 // Description: 
 //=========================================
-MinPQueue& MinPQueue::operator[](int i) {
-    if (i < 0 || i >= heap.size()) {
+template<typename T>
+T& MinPQueue<T>::operator[](int i) {
+    if (i >= size) {
         return;
     }
     else {
@@ -77,23 +84,25 @@ MinPQueue& MinPQueue::operator[](int i) {
 // smallest value of the sub tree
 //=========================================
 template <typename T>
-void MinPQueue::heapify(int i) {
+void MinPQueue<T>::heapify(int i) {
     int l = left(i);
     int r = right(i);
     int smallest = i;
-    int temp = i;
-    if (l <= heap.size() && heap[l] < heap[i]) {
+    T temp;
+    if (l <= size && minArray[l] < minArray[i]) {
         smallest = l;
     }
     else {
         smallest = i;
     }
-    if (r <= heap.size() && heap[r] < heap[i]) {
+    if (r <= size && minArray[r] < minArray[i]) {
         smallest = r;
     }
     if (smallest != i) {
-        heap[i] = heap[smallest];
-        heap[smallest] = heap[temp];
+        T temp = minArray[i];
+        minArray[i] = minArray[smallest];
+        minArray[smallest] = temp;
+
         heapify(smallest);
     }
 
@@ -106,8 +115,8 @@ void MinPQueue::heapify(int i) {
 // Description: Converts and existing queue to a min priority queue
 //=========================================
 template <typename T>
-void MinPQueue::buildHeap(heap& minHeap) {
-    int size = minHeap.size();
+void MinPQueue<T>::buildHeap() {
+    int size = size;
     int n = size/2;
     for (int i = n; i > 1; i--) {
         heapify(i);
@@ -121,20 +130,21 @@ void MinPQueue::buildHeap(heap& minHeap) {
 // Description: Find the size of the queue
 //=========================================
 template <typename T>
-long MinPQueue::size() {
-    return (heap.size();)
+long MinPQueue<T>::size() {
+    size = minArray.size();
+    return (minArray.size();)
 }
 
 //=========================================
 // Author: Esther Zhang
-// Parameter: Value to be searched
-// Return: True if found, false if not
-// Description: Searches for a value in the queue
+// Parameter: 
+// Return: The min value in the queue
+// Description: Finds and returns the min value in the queue
 //=========================================
 template<typename T>
-bool MinPQueue::search(const T& value) {
-    for (i = 0; i < heap.size(); i++) {
-        if (heap[i] == value;) {
+bool MinPQueue<T>::search(const T& value) {
+    for (i = 0; i < size; i++) {
+        if (minArray[i] == value;) {
             return true;
         }
         else {
@@ -149,10 +159,29 @@ bool MinPQueue::search(const T& value) {
 // Return: None
 // Description: Inserts a value into the Priority Queue
 //=========================================
-void MinPQueue::insert(const T& value) {
-    heap.push_back(value);
-    heapify(heap.size()-1);
+void MinPQueue<T>::insert(const T& value) {
+    if (size == minArray.size()) {
+        minArray.push_back(value);
+    }
+    else {
+        minArray[size] == value;
+    }
 
+    size++;
+    int i = size -1;
+    while(i > 0) {
+        int parent = (index - 1) / 2;
+
+        if (minArray[i] >= minArray[parent]) {
+            break;
+        }
+    }
+
+    T temp = minArray[i];
+    minArray[i] = minArray[parent];
+    minArray[parent] = temp;
+    
+    i = parent;
 }
 
 //=========================================
@@ -162,13 +191,12 @@ void MinPQueue::insert(const T& value) {
 // Description: Finds and returns the min value in the queue
 //=========================================
 template <typename T>
-T MinPQueue::getMin() {
-    if (heap.size() = 0) {
+const T& MinPQueue<T>::getMin() const {
+    if (size == 0) {
         return;
     }
     else {
-        heap.heapify();
-        return (heap[0]);
+        return (minArray[0]);
     }
 }
 
@@ -179,17 +207,17 @@ T MinPQueue::getMin() {
 // Description: Searches and deletes a value in the min prioity queue
 //=========================================
 template <typename T>
-void remove(const T& value){
+void minPQueue<T>::remove(const T& value){
     int temp = 0;
-    for (i = 0; i < heap.size(); i++) {
-        if (heap[i] == value) {
-            temp = i;
-            break;
-        }
+    int i = search(value);
+    if (i == false) {
+        return;
     }
-    heap[i] = heap[heap.size()-1]
-    heap[heap.size()-1] = heap[temp]; 
-    delete (heap[heap.size()-1]);
+    T temp = minArray[i];
+    minArray[i] = minArray[size-1];
+    minArray[size-1] = temp; 
+    delete (minArray[minArray.size()-1]);
 
     heapify(i);
 }
+
