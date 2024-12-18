@@ -28,5 +28,12 @@ class invalid_arguments: public exception{
         }
 };
 
+class invalid_value: public exception{
+    public:
+        const char* what() const noexcept override{
+            return "Operation failed: Value not found in queue";
+        }
+};
+
 
 #endif
