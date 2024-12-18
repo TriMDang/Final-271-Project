@@ -145,6 +145,18 @@ bool MinPQueue::search(const T& value) {
 
 //=========================================
 // Author: Esther Zhang
+// Parameter: Pointer to a value
+// Return: None
+// Description: Inserts a value into the Priority Queue
+//=========================================
+void MinPQueue::insert(const T& value) {
+    heap.push_back(value);
+    heapify(heap.size()-1);
+
+}
+
+//=========================================
+// Author: Esther Zhang
 // Parameter: 
 // Return: The min value in the queue
 // Description: Finds and returns the min value in the queue
