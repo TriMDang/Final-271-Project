@@ -249,9 +249,11 @@ T MinPQueue<T>::extractMin() {
 }
 
 //=========================================
-// Omar Perez
-// Check input
-// complete comments
+// Author: Omar Perez
+//Parameters: index of the value we will substitute,
+// and the new smaller value 
+//Description: We substitude the value in index 0, 
+//with the new value that must be smaller.
 //=========================================
 template <typename T>
 void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
@@ -271,6 +273,11 @@ void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
     }
 
 }
+
+//Author Omar Perez
+// Parameters: None
+//Description: Print the Priority Queue
+//This was usefull only for testing
 template <typename T>
 void MinPQueue<T>::printQueue() const {
     cout << "Priority Queue (MinArray): ";
