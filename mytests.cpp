@@ -24,10 +24,10 @@ int main(){
     test_insert(testsPassed, testsFailed);
     test_getMin(testsPassed, testsFailed);
     test_remove(testsPassed, testsFailed);
-    //test_extractmin(int &testPassed, int &testFailed)
-    //test_decreasekey(int &testPassed, int &testFailed);
-    //test_extractmin(testsPassed, testsFailed);
-    //test_left_right(int &testPassed, int &testFailed);
+    test_extractmin(testsPassed, testsFailed);
+    test_decreasekey(testsPassed, testsFailed);
+    test_extractmin(testsPassed, testsFailed);
+    test_left_right(testsPassed, testsFailed);
     //Graph g;
     //g.readFromSTDIN();
 
@@ -173,6 +173,7 @@ void test_extractmin(int &testPassed, int &testFailed){
     
     if (newmin== 3){
         testPassed++;
+        cout << "Passed test_getMin" << endl;
     }
     else{
         testFailed++;
@@ -192,12 +193,13 @@ void test_decreasekey(int &testPassed, int &testFailed){
     pQueue.insert(30);
     pQueue.insert(25);
 
-    // Decrease the key of value 20 to 5
-    pQueue.decreaseKey(20, 5);
+    // Change the value of 20 to 5
+    pQueue.decreaseKey(1, 5);
 
     if (pQueue.getMin() == 5) {
         testPassed++;
         cout << "Passed test_decreasekey" << endl;
+        //pQueue.printQueue();
     }
     else {
         testFailed++;
@@ -208,7 +210,7 @@ void test_decreasekey(int &testPassed, int &testFailed){
 
 
 void test_left_right(int &testPassed, int &testFailed) {
-      MinPQueue<int> pQueue;
+    MinPQueue<int> pQueue;
 
     
     pQueue.insert(10);
@@ -223,6 +225,7 @@ void test_left_right(int &testPassed, int &testFailed) {
     if (leftChild == 1 && rightChild == 2) { // Left and right indices for a 0-based heap
         testPassed++;
         cout << "Passed test_left_right" << endl;
+
     }
     else {
         testFailed++;

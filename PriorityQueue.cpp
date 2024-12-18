@@ -82,20 +82,22 @@ T& MinPQueue<T>::operator[](int i) {
 // Omar Perez
 // Parameter: index
 // Return: left child of the index
+//considering 0 based indexing
 //=========================================
 template <typename T>
 int MinPQueue<T>::left(int index){
-    return (2 * index);
+    return ((2 * index)+1 );
 }
 
 //=========================================
 // Omar Perez
 // Parameter: index
 // Return: The right child of the index
+//considering 0 based indexing
 //=========================================
 template <typename T>
 int MinPQueue<T>::right(int index){
-    return ((2 * index) + 1);
+    return ((2 * index) + 2);
 }
 
 //=========================================
@@ -253,20 +255,27 @@ T MinPQueue<T>::extractMin() {
 //=========================================
 template <typename T>
 void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
- MinPQueue<int> pQueue;
+    //int i is the index of the element
+    if (i < 0 || i >= minArray.size()) {
+        throw index_exception();
+    }
+    if (newValue > minArray[i]) {
+        throw index_exception();
+    }
 
+    minArray[i] = newValue;
 
-    pQueue.insert(1);
-    pQueue.insert(5);
-    pQueue.insert(7);
-    pQueue.insert(8);
-    pQueue.insert(3);
-    pQueue.insert(9);
+    while (i > 0 && minArray[parent(i)] > minArray[i]) {
+        swap(minArray[i], minArray[parent(i)]);
+        i = parent(i);
+    }
 
-
-    pQueue.decreaseKey(4, 2); // Decrease the value at index 4 (original value 3) to 2
-
-
-
-
+}
+template <typename T>
+void MinPQueue<T>::printQueue() const {
+    cout << "Priority Queue (MinArray): ";
+   for (size_t i = 0; i < minArray.size(); ++i) { 
+        cout << minArray[i] << " ";
+    }
+    cout << endl;
 }

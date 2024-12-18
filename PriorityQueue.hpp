@@ -36,6 +36,7 @@ class MinPQueue {
         int left(int index);
         int right(int index);
         int parent (int index);
+        void printQueue() const;
         
 };
 
