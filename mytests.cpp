@@ -37,7 +37,7 @@ void test_heapify(int &testPassed, int &testFailed) {
 
     pQueue.heapify(pQueue, 2);
 
-    if (pQueue[2] = 3) {
+    if (pQueue[2] == 3) {
         testPassed++;
         cout << "Passed test_heapify" << endl;
     }

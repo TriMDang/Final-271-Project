@@ -5,6 +5,7 @@
 //=========================================
 #include <tuple>
 #include "WeightedGraph.hpp"
+#include "customexceptions.hpp"
 #include <unordered_map>
 #include <vector>
 #include <queue>
