@@ -162,20 +162,8 @@ void MinPQueue<T>::insert(const T& value) {
     }
 
     size++;
-    int i = size -1;
-    while(i > 0) {
-        int parent = (i - 1) / 2;
-
-        if (minArray[i] >= minArray[parent]) {
-            break;
-        }
-    }
-
-    T temp = minArray[i];
-    minArray[i] = minArray[parent];
-    minArray[parent] = temp;
-    
-    i = parent;
+    heapify(minArray, 0);
+   
 }
 
 //=========================================
@@ -212,7 +200,7 @@ void MinPQueue<T>::remove(const T& value){
     minArray[size-1] = temp; 
     delete (minArray[minArray.size()-1]);
 
-    heapify(i);
+    heapify(minArray, i);
 }
 
 
