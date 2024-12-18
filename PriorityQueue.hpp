@@ -13,26 +13,27 @@
 
 using namespace std;
 
+template <typename T>
 class MinPQueue {
     private:
-        vector<long> heap; //Store the values of the priority queue
-        void heapify(int i);
-        void builHeap();
-        int left(i);
-        int right(i);
+        vector<T> heap; //Store the values of the priority queue
+        //int left(i);
+        //int right(i);
 
     public:
         MinPQueue(); //Default constructor
         ~MinPQueue(); //Destructor
         MinPQueue(const MinPQueue& other); //Copy constructor
         MinPQueue& operator=(const MinPQueue& other);
-        void insert(value);
-        int getMin();
+        MinPQueue& operator[](int i);
+        void heapify(int i);
+        void buildHeap();
+        long size();
+        //void insert(value);
+        T getMin();
         int extractMin();
         void decreaseKey();
-        void remove(value);
+        void remove(const T& value);
 };
 
 #endif
-
-
