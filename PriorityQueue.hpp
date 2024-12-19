@@ -27,7 +27,7 @@ private:
     
 
 public:
-    int size;
+    int size = 0;
     void heapify(int index);  // Maintains the min-heap property
     MinPQueue();                  // Default constructor
     ~MinPQueue();                 // Destructor

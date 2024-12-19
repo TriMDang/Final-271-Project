@@ -20,6 +20,7 @@ private:
     unordered_map<long, tuple<double, double>> vertices; // store vertices, <vertex key, <x, y>>
     unordered_map<long, vector<tuple<long, double, string>>> adjacencyList; // store edges; <u, <v, weight, name>>
     unordered_map<long, tuple<double, long>> dijkstraResults; // Key node u: total weight, parent node
+    MinPQueue<tuple<double, long>> weightQueue;
 public:
     Graph(); // Default constructor
     ~Graph(); // Destructor

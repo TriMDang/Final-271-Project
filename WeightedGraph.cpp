@@ -158,8 +158,6 @@ void Graph::dijkstra(double x, double y, double endX, double endY){
         cout << "Invalid Coordinates!" << endl;
     }
 
-    // Initialize results: node u --> (total weight, parent node)
-    MinPQueue<tuple<double, long>> weightQueue;
     for (const auto& node : vertices) {
         dijkstraResults[node.first] = make_tuple(LONG_MAX, -1); // Initialize all nodes as infinity with no parent
     }
@@ -172,7 +170,6 @@ void Graph::dijkstra(double x, double y, double endX, double endY){
         long currentNode = get<1>(weightQueue.extractMin());
         for (const auto& edge : adjacencyList[currentNode]){
             relax(currentNode, get<0>(edge), get<1>(edge));
-            weightQueue.insert(make_tuple(get<0>(dijkstraResults[get<0>(edge)]), get<0>(edge)));
         }
     }
 
@@ -207,5 +204,6 @@ void Graph::relax(long u, long v, double weight){
     double totalWeightToV = totalWeightFromU + weight;
     if (totalWeightToV < get<0>(dijkstraResults[v])) {
         dijkstraResults[v] = make_tuple(totalWeightToV, u); // Update the total weight and parent of v
+        weightQueue.insert(make_tuple(totalWeightToV, v));
     }
 }
