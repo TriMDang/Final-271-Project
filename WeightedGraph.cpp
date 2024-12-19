@@ -6,6 +6,7 @@
 #include <tuple>
 #include "WeightedGraph.hpp"
 #include "customexceptions.hpp"
+#include "PriorityQueue.hpp"
 #include <unordered_map>
 #include <vector>
 #include <queue>
@@ -136,37 +137,6 @@ Graph Graph::readFromSTDIN() {
     return (g);
 }
 
-
-// Authors:Omar Perez 
-//Parameter: Source node
-//Return: 
-//Description: Implements Dijkstra's algorithm for the graph
-
-
-// unordered_map<long, double> Graph::dijkstra(long source) {
-//     // Priority queue to store <distance, vertex>, sorted by min d
-//     priority_queue<pair<double, long>, vector<pair<double, long>>, greater<pair<double, long>>> pq;
-//     unordered_map<long, double> distances;
-//     //store visited nodes
-//     set<long> visited;
-
-//     // Initialize distances to infinity for all vertices
-//     for (const auto& vertex : vertices) {
-//         distances[vertex.first] = numeric_limits<double>::infinity();
-//     }
-
-
-//     distances[source] = 0;
-
-
-//     pq.push({0, source});
-
-//     while (!pq.empty()) {
-        
-//     }
-
-// }
-
 //=========================================
 // Dijkstra's Algorithm
 // Author: Tri Dang
@@ -186,7 +156,21 @@ void Graph::dijkstra(double x, double y, double endX, double endY){
     }
     if ((id2 == -1) && (id == -1)){
         throw invalid_coords();
+    } // no need for an else statement, exception stops program all together
+
+    set<long> pathing; // all ID from beginning to end;
+    MinPQueue<double> weightQueue;
+    for (const auto& node : vertices) {
+        dijkstraResults[node.first] = make_tuple(LONG_MAX, -1); // all weights are currently "infinity"
     }
+    dijkstraResults[id] = make_tuple(0, -1);
+
+    for (const auto& node : adjacencyList){
+        for (const auto& edges: node.second){
+            weightQueue.insert(get<1>(edges));
+        }
+    }
+    weightQueue.heapify(1);
 
 // vertices: node u --> x, y
 // adjacencyList node u --> destination node v, weight, name
