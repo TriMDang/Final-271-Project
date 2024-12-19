@@ -155,7 +155,7 @@ void Graph::dijkstra(double x, double y, double endX, double endY){
         }
     }
     if (id == -1 || id2 == -1){
-        throw invalid_coords();
+        cout << "Invalid Coordinates!" << endl;
     }
 
     // Initialize results: node u --> (total weight, parent node)

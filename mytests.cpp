@@ -13,6 +13,7 @@ void test_getMin(int &testPassed, int &testFailed);
 void test_remove(int &testPassed, int &testFailed);
 void test_extractMin(int &testPassed, int &testFailed);
 void test_decreaseKey(int &testPassed, int &testFailed);
+void CLI_program();
 
 int main() {
   string response = "";
@@ -32,19 +33,29 @@ int main() {
         cout << "Tests Passed: " << testsPassed << endl;
         cout << "Tests Failed: " << testsFailed << endl;
     }
-    // run for data extractions!
-    response = "";
-    Graph g;
-    g = g.readFromSTDIN();
-    //while (response != "q"){
+    CLI_program();
+    return 0;
+}
+
+void CLI_program(){
+    string response = "";
+    while (true){
+        cout << "type 'q' to search for path, any other key ends program: ";
+        cin >> response;
+        if (response != "q"){
+            cout << "Program ended: have a wonderful winter break!" << endl;
+            break;
+        }
+        Graph g;
+        g = g.readFromSTDIN();
         double startX, startY, endX, endY;
         cout << "Starting Coordinates: ";
         cin >> startX >> startY;
         cout << "Ending Coordinates: ";
         cin >> endX >> endY;
         g.dijkstra(startX, startY, endX, endY);
-        //}
-    return 0;
+        }
+
 }
 
 void test_heapify(int &testPassed, int &testFailed) {
