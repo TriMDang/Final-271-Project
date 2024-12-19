@@ -29,6 +29,7 @@ public:
     void addEdge(long u, long v, double weight, string name=""); // name="" prevents line with no names
     void addVertex(long u, double x, double y);
     void dijkstra(double x, double y, double endX, double endY); // Dijkstra does NOT return anything. 
+    void relax(long u, long v, double weight);
 };
 
 

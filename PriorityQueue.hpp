@@ -19,7 +19,7 @@ class MinPQueue {
 private:
     vector<T> minArray; // Vector to store heap elements as tuples
     unordered_map<typename ::tuple_element<1, T>::type, int> nodePosition; // Map to track positions
-    int size;
+
 
     int left(int index);      // Returns the left child index
     int right(int index);     // Returns the right child index
@@ -27,6 +27,7 @@ private:
     
 
 public:
+    int size;
     void heapify(int index);  // Maintains the min-heap property
     MinPQueue();                  // Default constructor
     ~MinPQueue();                 // Destructor

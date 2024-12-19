@@ -1,5 +1,6 @@
 #include "PriorityQueue.cpp"
 #include <iostream>
+#include "WeightedGraph.cpp"
 #include <tuple>
 
 using namespace std;
@@ -14,7 +15,10 @@ void test_extractMin(int &testPassed, int &testFailed);
 void test_decreaseKey(int &testPassed, int &testFailed);
 
 int main() {
-  
+  string response = "";
+    cout << "Before starting...type 'y' to run PQ test (any other key if not): ";
+    cin >> response;
+    if (response == "y"){
         int testsPassed = 0;
         int testsFailed = 0;
         test_heapify(testsPassed, testsFailed);
@@ -25,10 +29,21 @@ int main() {
         test_remove(testsPassed, testsFailed);
         test_extractMin(testsPassed, testsFailed);
         test_decreaseKey(testsPassed, testsFailed);
-
         cout << "Tests Passed: " << testsPassed << endl;
         cout << "Tests Failed: " << testsFailed << endl;
-    
+    }
+    // run for data extractions!
+    response = "";
+    Graph g;
+    g = g.readFromSTDIN();
+    //while (response != "q"){
+        double startX, startY, endX, endY;
+        cout << "Starting Coordinates: ";
+        cin >> startX >> startY;
+        cout << "Ending Coordinates: ";
+        cin >> endX >> endY;
+        g.dijkstra(startX, startY, endX, endY);
+        //}
     return 0;
 }
 
