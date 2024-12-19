@@ -10,32 +10,44 @@
 
 #include <iostream>
 #include <vector>
-
+#include <tuple>
+#include <unordered_map>
 using namespace std;
 
 template <typename T>
 class MinPQueue {
-    private:
-        vector<<tuple<double, long> minArray; //Store the values of the priority queue
-        int size;
-        int left(int index);
-        int right(int index);
-        int parent (int index);
-    public:
-        MinPQueue(); //Default constructor
-        ~MinPQueue(); //Destructor
-        MinPQueue(const MinPQueue<T>& other); //Copy constructor
-        MinPQueue<T>& operator=(const MinPQueue<T>& other);
-        T& operator[](int i);
-        void heapify(int i);
-        void buildHeap(int n);
-        bool search(const T& value);
-        void insert(const T& value);
-        T getMin() const;
-        void remove(const T& value);
-        T extractMin();
-        void decreaseKey(int i, const T& newValue);
-        
+private:
+    std::vector<T> minArray; // Vector to store heap elements as tuples
+    std::unordered_map<typename std::tuple_element<1, T>::type, int> nodePosition; // Map to track positions
+    int size;
+
+    int left(int index);      // Returns the left child index
+    int right(int index);     // Returns the right child index
+    int parent(int index);    // Returns the parent index
+    
+
+public:
+    void heapify(int index);  // Maintains the min-heap property
+    MinPQueue();                  // Default constructor
+    ~MinPQueue();                 // Destructor
+    MinPQueue(const MinPQueue& other); // Copy constructor
+    MinPQueue& operator=(const MinPQueue& other); // Copy assignment operator
+
+    T& operator[](int index);     // Access operator
+
+    void buildHeap(int size);     // Build heap from existing elements
+    bool search(const T& value); // Search for a value in the queue
+    void insert(const T& value); // Insert a new value into the queue
+    void remove(const T& value); // Remove a specific value from the queue
+    T extractMin();              // Extract the minimum value from the queue
+    T getMin() const;            // Get the minimum value without extracting
+    void decreaseKey(int index, const T& newValue); // Decrease the key of a value
+
+    void printQueue() const;     // Print the queue (for debugging purposes)
 };
 
-#endif
+
+#endif // PRIORITYQUEUE_HPP
+
+
+

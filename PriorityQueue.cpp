@@ -2,7 +2,7 @@
 // PriorityQueue.cpp
 // Date: 12/16/24
 // Authors: Tri Dang, Omar Perez, Esther Zhang
-// Description: Implemetation of all functions for Priotity Queue
+// Description: Implementation of all functions for Priority Queue supporting tuples
 //=========================================
 
 #include "PriorityQueue.hpp"
@@ -11,17 +11,18 @@
 
 using namespace std;
 
+using namespace std;
+
 //=========================================
 // Author: Esther Zhang 
 // Parameter: None
 // Return: None. Queue is constructed
-// Description: Construct minimum prioity queue
+// Description: Construct minimum priority queue
 //=========================================
 template <typename T>
 MinPQueue<T>::MinPQueue() {
     size = 0;
-  
-    }
+}
 
 //=========================================
 // Author: Esther Zhang
@@ -32,8 +33,8 @@ MinPQueue<T>::MinPQueue() {
 template <typename T>
 MinPQueue<T>::~MinPQueue() {
     minArray.clear();
+    nodePosition.clear();
 }
-
 
 //=========================================
 // Author: Esther Zhang
@@ -45,18 +46,20 @@ template <typename T>
 MinPQueue<T>::MinPQueue(const MinPQueue& other) {
     size = other.size;
     minArray = other.minArray;
+    nodePosition = other.nodePosition;
 }
 
 //=========================================
 // Author: Esther Zhang
 // Parameter: Existing queue
 // Return: New/this queue
-// Description: Similar to copy constructor but it works on prexisting queue
+// Description: Similar to copy constructor but it works on preexisting queue
 //=========================================
 template <typename T>
 MinPQueue<T>& MinPQueue<T>::operator=(const MinPQueue<T>& other) {
-      if (this != &other) {
+    if (this != &other) {
         minArray = other.minArray;
+        nodePosition = other.nodePosition;
         size = other.size;
     }
     return *this;
@@ -66,72 +69,69 @@ MinPQueue<T>& MinPQueue<T>::operator=(const MinPQueue<T>& other) {
 // Author: Esther Zhang
 // Parameter: Index
 // Return: The value at said index
-// Description: 
+// Description: Accesses value at index
 //=========================================
 template<typename T>
 T& MinPQueue<T>::operator[](int i) {
     if (i >= size) {
         throw index_exception();
     }
-    else {
-        return minArray[i];
-    }
+    return minArray[i];
 }
 
 //=========================================
-// Omar Perez
+// Author: Omar Perez
 // Parameter: index
 // Return: left child of the index
-//considering 0 based indexing
 //=========================================
 template <typename T>
-int MinPQueue<T>::left(int index){
-    return ((2 * index)+1 );
+int MinPQueue<T>::left(int index) {
+    return (2 * index + 1);
 }
 
 //=========================================
-// Omar Perez
+// Author: Omar Perez
 // Parameter: index
 // Return: The right child of the index
-//considering 0 based indexing
 //=========================================
 template <typename T>
-int MinPQueue<T>::right(int index){
-    return ((2 * index) + 2);
+int MinPQueue<T>::right(int index) {
+    return (2 * index + 2);
 }
 
 //=========================================
-// Omar Perez
-// PArameter: index
-// Return: parent of the index. used for internal operations
+// Author: Omar Perez
+// Parameter: index
+// Return: parent of the index
 //=========================================
 template <typename T> 
-int MinPQueue<T> :: parent (int index){
-    return((index - 1) / 2);
+int MinPQueue<T>::parent(int index) {
+    return (index - 1) / 2;
 }
 
 //=========================================
 // Author: Esther Zhang
 // Parameter: Index
 // Return: None
-// Description: Update the priority queue so that the  at i is the 
-// smallest value of the sub tree
+// Description: Update the priority queue so that the value at i is the 
+// smallest value of the subtree
 //=========================================
 template <typename T>
-//error in the declaration
 void MinPQueue<T>::heapify(int i) {
     int l = left(i);
     int r = right(i);
     int smallest = i;
 
-    if (l < size && minArray[l] < minArray[i]) {
+    if (l < size && get<0>(minArray[l]) < get<0>(minArray[i])) {
         smallest = l;
     }
-    if (r < size && minArray[r] < minArray[smallest]) {
+    if (r < size && get<0>(minArray[r]) < get<0>(minArray[smallest])) {
         smallest = r;
     }
     if (smallest != i) {
         swap(minArray[i], minArray[smallest]);
+        nodePosition[get<1>(minArray[i])] = i;
+        nodePosition[get<1>(minArray[smallest])] = smallest;
         heapify(smallest);
     }
 }
@@ -140,21 +140,21 @@ void MinPQueue<T>::heapify(int i) {
 // Author: Esther Zhang
 // Parameter: Existing queue
 // Return: None
-// Description: Converts and existing queue to a min priority queue
+// Description: Converts an existing queue to a min priority queue
 //=========================================
 template <typename T>
 void MinPQueue<T>::buildHeap(int s) {
-    size = s; // Set the size based on the input parameter
-    for (int i = (size / 2) - 1; i >= 0; i--) { // Start from last internal node
-        heapify(i); // Heapify each subtree
+    size = s;
+    for (int i = (size / 2) - 1; i >= 0; i--) {
+        heapify(i);
     }
 }
 
 //=========================================
 // Author: Esther Zhang
-// Parameter: 
-// Return: The min value in the queue
-// Description: Finds and returns the min value in the queue
+// Parameter: The value to search for
+// Return: True if found, otherwise false
+// Description: Searches for a value in the queue
 //=========================================
 template<typename T>
 bool MinPQueue<T>::search(const T& value) {
@@ -168,7 +168,7 @@ bool MinPQueue<T>::search(const T& value) {
 
 //=========================================
 // Author: Esther Zhang
-// Parameter: Pointer to a value
+// Parameter: A tuple to insert
 // Return: None
 // Description: Inserts a value into the Priority Queue
 //=========================================
@@ -176,59 +176,59 @@ template<typename T>
 void MinPQueue<T>::insert(const T& value) {
     minArray.push_back(value);
     size++;
-
     int i = size - 1;
-    while (i > 0 && minArray[parent(i)] > minArray[i]) {
+    nodePosition[get<1>(value)] = i;
+
+    while (i > 0 && get<0>(minArray[parent(i)]) > get<0>(minArray[i])) {
         swap(minArray[i], minArray[parent(i)]);
+        nodePosition[get<1>(minArray[i])] = i;
+        nodePosition[get<1>(minArray[parent(i)])] = parent(i);
         i = parent(i);
     }
 }
 
 //=========================================
 // Author: Esther Zhang
-// Parameter: 
-// Return: The min value in the queue
-// Description: Finds and returns the min value in the queue
+// Parameter: None
+// Return: The minimum value in the queue
+// Description: Finds and returns the minimum value in the queue
 //=========================================
 template <typename T>
 T MinPQueue<T>::getMin() const {
     if (size == 0) {
         throw empty_heap();
     }
-    else {
-        return (minArray[0]);
-    }
+    return minArray[0];
 }
 
 //=========================================
 // Author: Esther Zhang
-// Parameter: Pointer to a value
+// Parameter: A tuple to remove
 // Return: None
-// Description: Searches and deletes a value in the min prioity queue
+// Description: Searches and deletes a value in the min priority queue
 //=========================================
 template <typename T>
 void MinPQueue<T>::remove(const T& value) {
-    for (int i = 0; i < size; i++) {
-        if (minArray[i] == value) {
-            minArray[i] = minArray[size - 1];
-            minArray.pop_back();
-            size--;
-            heapify(i);
-            return;
-        }
-            
+    if (nodePosition.find(get<1>(value)) == nodePosition.end()) {
+        throw invalid_value();
     }
-    throw invalid_value();
-    //maybe implement something if the val is not found here
+    int i = nodePosition[get<1>(value)];
+    minArray[i] = minArray[size - 1];
+    nodePosition[get<1>(minArray[i])] = i;
+    nodePosition.erase(get<1>(value));
+    minArray.pop_back();
+    size--;
+
+    if (size > 0) {
+        heapify(i);
+    }
 }
 
 //=========================================
 // Author: Omar Perez
-// Parameter: none
-// Return: int, min value 
-// Description: while the heap isnt empty we return 
-// the min value and delete it from the queue. 
-// fixing the min heap property is guaranteed by calling heapify(0)
+// Parameter: None
+// Return: The minimum value in the queue
+// Description: Removes and returns the minimum value
 //=========================================
 template <typename T>
 T MinPQueue<T>::extractMin() {
@@ -238,52 +238,51 @@ T MinPQueue<T>::extractMin() {
 
     T minValue = minArray[0];
     minArray[0] = minArray[size - 1];
+    nodePosition[get<1>(minArray[0])] = 0;
+    nodePosition.erase(get<1>(minValue));
     minArray.pop_back();
     size--;
 
     if (size > 0) {
         heapify(0);
     }
-
     return minValue;
 }
 
 //=========================================
 // Author: Omar Perez
-// Parameters: index of the value we will substitute,
-// and the new smaller value 
-// Description: We substitude the value in index 0, 
-// with the new value that must be smaller.
+// Parameter: Index of the value, and the new smaller value
+// Return: None
+// Description: Decreases the key of a value in the queue
 //=========================================
 template <typename T>
 void MinPQueue<T>::decreaseKey(int i, const T& newValue) {
-    //int i is the index of the element
-    if (i < 0 || i >= minArray.size()) {
-        throw index_exception();
-    }
-    if (newValue > minArray[i]) {
+    if (i < 0 || i >= size || get<0>(newValue) > get<0>(minArray[i])) {
         throw index_exception();
     }
 
     minArray[i] = newValue;
+    nodePosition[get<1>(newValue)] = i;
 
-    while (i > 0 && minArray[parent(i)] > minArray[i]) {
+    while (i > 0 && get<0>(minArray[parent(i)]) > get<0>(minArray[i])) {
         swap(minArray[i], minArray[parent(i)]);
+        nodePosition[get<1>(minArray[i])] = i;
+        nodePosition[get<1>(minArray[parent(i)])] = parent(i);
         i = parent(i);
     }
-
 }
+
 //=========================================
 // Author: Omar Perez
-// Parameters: None
-// Return: none
-// Description: Print the Priority Queue. This was usefull only for testing
+// Parameter: None
+// Return: None
+// Description: Prints the priority queue (used for testing)
 //=========================================
 template <typename T>
 void MinPQueue<T>::printQueue() const {
     cout << "Priority Queue (MinArray): ";
-   for (size_t i = 0; i < minArray.size(); ++i) { 
-        cout << minArray[i] << " ";
+    for (const auto& elem : minArray) {
+        cout << "(" << get<0>(elem) << ", " << get<1>(elem) << ") ";
     }
     cout << endl;
 }
