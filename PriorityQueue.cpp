@@ -11,7 +11,6 @@
 
 using namespace std;
 
-using namespace std;
 
 //=========================================
 // Author: Esther Zhang 
