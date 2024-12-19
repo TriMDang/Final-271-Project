@@ -17,8 +17,8 @@ using namespace std;
 template <typename T>
 class MinPQueue {
 private:
-    std::vector<T> minArray; // Vector to store heap elements as tuples
-    std::unordered_map<typename std::tuple_element<1, T>::type, int> nodePosition; // Map to track positions
+    vector<T> minArray; // Vector to store heap elements as tuples
+    unordered_map<typename ::tuple_element<1, T>::type, int> nodePosition; // Map to track positions
     int size;
 
     int left(int index);      // Returns the left child index
