@@ -19,15 +19,7 @@ class Graph {
 private:
     unordered_map<long, tuple<double, double>> vertices; // store vertices, <vertex key, <x, y>>
     unordered_map<long, vector<tuple<long, double, string>>> adjacencyList; // store edges; <u, <v, weight, name>>
-    
-    //unordered_map<int, vector<int> > adjacencyList; // stores edges
-    //vector<int> sorted; // for topological order
-    //vector<int> ordered; // final topological order
-    //unordered_map<int, tuple<int, int, int>> DFSresults; // for DFS, format: unordered_map< vertex u , tuple< discovery, finish, parent >>
-    //long finish; // f in textbook
-    //long discovery; // d in textbook
-    //long time; // will be kept global here for accurate and consistent finish and discovery time
-
+    unordered_map<long, tuple<double, long>> dijkstraResults; // Key node u: total weight, parent node
 public:
     Graph(); // Default constructor
     ~Graph(); // Destructor
@@ -36,19 +28,8 @@ public:
     static Graph readFromSTDIN();
     void addEdge(long u, long v, double weight, string name=""); // name="" prevents line with no names
     void addVertex(long u, double x, double y);
-
-
-    unordered_map<long, double> dijkstra(long source);
-
-    //bool edgeIn(int u, int v);
-    //void deleteVertex(int u);
-    //void addVertex(int u);
-    //unordered_map<int, pair<int, int> > breadthFirstSearch(int s);
-    //unordered_map<int, tuple<int, int, int> > depthFirstSearch(bool sort=false);
-    //void DFSvisit(int u, int parent, set<int> visited, bool sort=false);
-    //vector<int> getOrdering();
+    void dijkstra(double x, double y, double endX, double endY); // Dijkstra does NOT return anything. 
 };
-// Add other methods similarly
 
 
 #endif

@@ -15,26 +15,39 @@ void test_left_right(int &testPassed, int &testFailed);
 using namespace std;
 
 int main(){
-    int testsPassed = 0;
-    int testsFailed = 0;
+    string response = "";
+    cout << "Before starting...type 'y' to run PQ test (any other key if not): ";
+    cin >> response;
+    if (response == "y"){
+        int testsPassed = 0;
+        int testsFailed = 0;
+        test_heapify(testsPassed, testsFailed);
+        test_buildHeap(testsPassed, testsFailed);
+        test_search(testsPassed, testsFailed);
+        test_insert(testsPassed, testsFailed);
+        test_getMin(testsPassed, testsFailed);
+        test_remove(testsPassed, testsFailed);
+        test_extractmin(testsPassed, testsFailed);
+        test_decreasekey(testsPassed, testsFailed);
+        test_extractmin(testsPassed, testsFailed);
+        test_left_right(testsPassed, testsFailed);
+        cout << "Tests Passed: " << testsPassed << endl;
+        cout << "Tests Failed: " << testsFailed << endl;
+    }
 
-    test_heapify(testsPassed, testsFailed);
-    test_buildHeap(testsPassed, testsFailed);
-    test_search(testsPassed, testsFailed);
-    test_insert(testsPassed, testsFailed);
-    test_getMin(testsPassed, testsFailed);
-    test_remove(testsPassed, testsFailed);
-    test_extractmin(testsPassed, testsFailed);
-    test_decreasekey(testsPassed, testsFailed);
-    test_extractmin(testsPassed, testsFailed);
-    test_left_right(testsPassed, testsFailed);
-    //Graph g;
-    //g.readFromSTDIN();
-
-    cout << "Tests Passed: " << testsPassed << endl;
-    cout << "Tests Failed: " << testsFailed << endl;
+    // run for data extractions!
+    response = "";
+    Graph g;
+    g.readFromSTDIN();
+    //while (response != "q"){
+        double startX, startY, endX, endY;
+        cout << "Starting Coordinates: ";
+        cin >> startX >> startY;
+        cout << "Ending Coordinates: ";
+        cin >> endX >> endY;
+        g.dijkstra(startX, startY, endX, endY);
+    //}
     return (0);
-
 }
 
 void test_heapify(int &testPassed, int &testFailed) {

@@ -35,5 +35,19 @@ class invalid_value: public exception{
         }
 };
 
+class invalid_coords: public exception{
+    public:
+        const char* what() const noexcept override{
+            return "Operation failed: This place does NOT exist.";
+        }
+};
+
+class invalid_txt: public exception{
+    public:
+        const char* what() const noexcept override{
+            return "Operation failed: This file does NOT exist.";
+        }
+};
+
 
 #endif
