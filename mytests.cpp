@@ -38,12 +38,12 @@ int main(){
     // run for data extractions!
     response = "";
     Graph g;
-    g.readFromSTDIN();
+    g = g.readFromSTDIN();
     //while (response != "q"){
         double startX, startY, endX, endY;
-        cout << "Starting Coordinates: ";
+        cout << "Starting Coordinates (ALL DECIMAL VALUES): ";
         cin >> startX >> startY;
-        cout << "Ending Coordinates: ";
+        cout << "Ending Coordinates (ALL DECIMAL VALUES): ";
         cin >> endX >> endY;
         g.dijkstra(startX, startY, endX, endY);
     //}

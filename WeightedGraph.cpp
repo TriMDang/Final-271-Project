@@ -114,7 +114,7 @@ Graph Graph::readFromSTDIN() {
         double x, y;
         inputFile >> ID >> x >> y;
         g.addVertex(ID, x, y);
-        cout << ID << " " << x << " " << y << " " << endl; // for data verifications
+        //cout << ID << " " << x << " " << y << " " << endl; // for data verifications
     }
 
     // adding all the edges
@@ -175,10 +175,17 @@ Graph Graph::readFromSTDIN() {
 // Description: Dijkstra is meant to update all node with total weight attribute and parent. 
 //=========================================
 void Graph::dijkstra(double x, double y, double endX, double endY){
+    long id = -1, id2 = -1;
     for (const auto& node: vertices){
-        if (get<0>(vertices[node.first]) == x && get<1>(vertices[node.first]) == y){
-            cout << "horray!";
+        if ((get<0>(node.second) == x) && (get<1>(node.second) == y)){
+            id = node.first;
         }
+        if ((get<0>(node.second) == endX) && (get<1>(node.second) == endY)){
+            id2 = node.first;
+        }
+    }
+    if ((id2 == -1) && (id == -1)){
+        throw invalid_coords();
     }
 
 // vertices: node u --> x, y
