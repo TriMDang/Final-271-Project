@@ -14,10 +14,7 @@ void test_extractMin(int &testPassed, int &testFailed);
 void test_decreaseKey(int &testPassed, int &testFailed);
 
 int main() {
-    string response = "";
-    cout << "Before starting...type 'y' to run PQ test (any other key if not): ";
-    cin >> response;
-    if (response == "y") {
+  
         int testsPassed = 0;
         int testsFailed = 0;
         test_heapify(testsPassed, testsFailed);
@@ -31,7 +28,7 @@ int main() {
 
         cout << "Tests Passed: " << testsPassed << endl;
         cout << "Tests Failed: " << testsFailed << endl;
-    }
+    
     return 0;
 }
 
